@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:shopappy/pages/login_screen.dart';
+import 'package:shopappy/shared/network/local/cache_helper.dart';
 
 class OnBordingScreen extends StatelessWidget {
   List<PageViewModel> listPagesViewModel = [
@@ -86,11 +87,15 @@ class OnBordingScreen extends StatelessWidget {
       body: IntroductionScreen(
         pages: listPagesViewModel,
         onDone: () {
-          Navigator.of(context).pushReplacement(
-            MaterialPageRoute(
-              builder: (context) => LoginScreen(),
-            ),
-          );
+          CacheHelper.saveData(key: 'onBoarding', value: true).then((value) {
+            if (value) {
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(
+                  builder: (context) => LoginScreen(),
+                ),
+              );
+            }
+          });
         },
         showNextButton: true,
         showBackButton: false,

@@ -18,7 +18,7 @@ class AppCubit extends Cubit<AppState> {
       isDark = fromShared;
     else
       isDark = !isDark;
-    CacheHelper.putBoolean(key: 'isDark', value: isDark)
+    CacheHelper.saveData(key: 'isDark', value: isDark)
         .then((value) => emit(AppChangeThemeState()));
   }
 }

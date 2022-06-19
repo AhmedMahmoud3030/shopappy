@@ -1,14 +1,24 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shopappy/pages/home_screen.dart';
 import 'package:shopappy/pages/register_screen.dart';
 import 'package:shopappy/shared/components/components.dart';
+import 'package:shopappy/shared/cubit/app_cubit/app_cubit.dart';
 import 'package:shopappy/shared/cubit/login_cubit/login_cubit.dart';
+import 'package:shopappy/shared/network/local/cache_helper.dart';
 
 class LoginScreen extends StatelessWidget {
-  var emailController = TextEditingController();
-  var passwordController = TextEditingController();
-  var formKey = GlobalKey<FormState>();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  final formKey = GlobalKey<FormState>();
+
+  //!old one not tested
+  // var emailController = TextEditingController();
+  // var passwordController = TextEditingController();
+  // var formKey = GlobalKey<FormState>();
+
+  LoginScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,9 +28,19 @@ class LoginScreen extends StatelessWidget {
         listener: (context, state) {
           if (state is LoginSucssesState) {
             if (state.loginModel.status!) {
-              customToast(msg: state.loginModel.message.toString());
+              CacheHelper.saveData(
+                      key: 'token', value: state.loginModel.data!.token)
+                  .then((value) {
+                return customToast(
+                  msg: state.loginModel.message.toString(),
+                  color: Colors.greenAccent,
+                ).then((value) => navigateAndFinish(context, HomeScreen()));
+              });
             } else {
-              customToast(msg: state.loginModel.message.toString());
+              customToast(
+                msg: state.loginModel.message.toString(),
+                color: Colors.redAccent,
+              );
             }
           }
         },
