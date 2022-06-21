@@ -19,4 +19,14 @@ class LoginErrorState extends LoginState {
   LoginErrorState(this.message);
 }
 
+class LogoutSucssesState extends LoginState {
+  LogoutSucssesState();
+}
+
+class LogoutErrorState extends LoginState {
+  final String message;
+
+  LogoutErrorState(this.message);
+}
+
 class ChangeVisibilityState extends LoginState {}

@@ -23,7 +23,7 @@ void main() async {
   Widget? startWidget;
 
   if (isBorading!) {
-    if (token.length >= 4) {
+    if (token!.length >= 5) {
       startWidget = HomeScreen();
     } else {
       startWidget = LoginScreen();
@@ -52,7 +52,10 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => AppCubit()..changeThemeMode(fromShared: isDark),
+          create: (context) => AppCubit()..changeAppMode(fromShared: isDark),
+        ),
+        BlocProvider(
+          create: (context) => LoginCubit(),
         ),
         BlocProvider(
             create: (context) => HomeCubit()
@@ -62,6 +65,7 @@ class MyApp extends StatelessWidget {
       child: BlocConsumer<AppCubit, AppState>(
         listener: (context, state) {
           // TODO: implement listener
+          print(AppCubit().isDark);
         },
         builder: (context, state) {
           return MaterialApp(

@@ -26,3 +26,11 @@ class HomeCategoryErrorDataState extends HomeState {
 
   HomeCategoryErrorDataState(this.message);
 }
+
+class HomeChangeFavoriteState extends HomeState {}
+
+class HomeChangeErrorFavoriteState extends HomeState {
+  final String message;
+
+  HomeChangeErrorFavoriteState(this.message);
+}

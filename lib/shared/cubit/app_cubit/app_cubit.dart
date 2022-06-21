@@ -13,12 +13,16 @@ class AppCubit extends Cubit<AppState> {
   static AppCubit get(context) => BlocProvider.of(context);
 
   bool isDark = false;
-  changeThemeMode({bool? fromShared}) {
-    if (fromShared != null)
+
+  void changeAppMode({bool? fromShared}) {
+    if (fromShared != null) {
       isDark = fromShared;
-    else
+      emit(AppChangeThemeState());
+    } else {
       isDark = !isDark;
-    CacheHelper.saveData(key: 'isDark', value: isDark)
-        .then((value) => emit(AppChangeThemeState()));
+      CacheHelper.saveData(key: 'isDark', value: isDark).then((value) {
+        emit(AppChangeThemeState());
+      });
+    }
   }
 }

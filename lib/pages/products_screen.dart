@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopappy/models/categories_model.dart';
 import 'package:shopappy/shared/components/components.dart';
 import 'package:shopappy/shared/cubit/home_cubit/home_cubit.dart';
+import 'package:shopappy/shared/network/end_points.dart';
 import 'package:shopappy/shared/styles/colors.dart';
 
 import '../models/home_model.dart';
@@ -20,7 +21,8 @@ class ProductsScreen extends StatelessWidget {
               HomeCubit.get(context).categorieModel != null,
           builder: (context) => builderWidget(
               (HomeCubit.get(context).homeModel) as HomeModel,
-              (HomeCubit.get(context).categorieModel) as CategoriesModel),
+              (HomeCubit.get(context).categorieModel) as CategoriesModel,
+              context),
           fallback: (context) => Center(
             child: CircularProgressIndicator(),
           ),
@@ -29,7 +31,8 @@ class ProductsScreen extends StatelessWidget {
     );
   }
 
-  Widget builderWidget(HomeModel homeModel, CategoriesModel cateModel) =>
+  Widget builderWidget(HomeModel homeModel, CategoriesModel cateModel,
+          BuildContext context) =>
       SingleChildScrollView(
         physics: BouncingScrollPhysics(),
         child: Padding(
@@ -121,8 +124,8 @@ class ProductsScreen extends StatelessWidget {
                   childAspectRatio: 1 / 1.58,
                   children: List.generate(
                     homeModel.data!.products!.length,
-                    (index) =>
-                        buildGridProduct(homeModel.data!.products![index]),
+                    (index) => buildGridProduct(
+                        homeModel.data!.products![index], context),
                   ),
                 ),
               ),
@@ -131,7 +134,7 @@ class ProductsScreen extends StatelessWidget {
         ),
       );
 
-  Widget buildGridProduct(Products model) => Container(
+  Widget buildGridProduct(Products model, BuildContext context) => Container(
         color: Colors.white,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -200,15 +203,19 @@ class ProductsScreen extends StatelessWidget {
                         Spacer(),
                         IconButton(
                           icon: CircleAvatar(
+                            backgroundColor:
+                                HomeCubit.get(context).favorites[model.id]!
+                                    ? null
+                                    : Colors.grey.shade300,
                             radius: 15,
                             child: Icon(
+                              color: Colors.white,
                               Icons.favorite_border,
                               size: 14.0,
                             ),
                           ),
                           onPressed: () {
-                            print(model.inFavorites);
-                            print(model.id);
+                            HomeCubit.get(context).changeFavorite(model.id!);
                           },
                         ),
                       ],

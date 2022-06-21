@@ -51,6 +51,22 @@ class HomeCubit extends Cubit<HomeState> {
     });
   }
 
+  void changeFavorite(int id) async {
+    favorites[id] = !favorites[id]!;
+    await DioHelper.postData(
+            data: {'product_id': id}, endPoint: FAVORITES, token: token)
+        .then((value) {
+      print(value.data);
+
+      emit(HomeChangeFavoriteState());
+    }).catchError((err) {
+      print(err.toString());
+      favorites[id] = !favorites[id]!;
+
+      emit(HomeChangeErrorFavoriteState(err.toString()));
+    });
+  }
+
   CategoriesModel? categorieModel;
   void getCategoryData() async {
     emit(HomeCategoryLoadingDataState());

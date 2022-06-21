@@ -4,6 +4,9 @@ import 'package:shopappy/pages/search_screen.dart';
 import 'package:shopappy/pages/settings.dart';
 import 'package:shopappy/shared/components/components.dart';
 import 'package:shopappy/shared/cubit/home_cubit/home_cubit.dart';
+import 'package:shopappy/shared/styles/colors.dart';
+
+import '../shared/cubit/app_cubit/app_cubit.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -27,6 +30,26 @@ class HomeScreen extends StatelessWidget {
               icon: Icon(Icons.search),
             ),
             actions: [
+              IconButton(
+                onPressed: () {
+                  AppCubit.get(context).changeAppMode();
+                },
+                icon: BlocConsumer<AppCubit, AppState>(
+                  listener: (context, state) {
+                    // TODO: implement listener
+                  },
+                  builder: (context, state) {
+                    return Icon(
+                      AppCubit.get(context).isDark
+                          ? Icons.brightness_3_sharp
+                          : Icons.brightness_7_sharp,
+                      color: AppCubit.get(context).isDark
+                          ? defaultColor
+                          : Colors.black,
+                    );
+                  },
+                ),
+              ),
               IconButton(
                 onPressed: () {
                   navigateTo(context, SettingsScreen());

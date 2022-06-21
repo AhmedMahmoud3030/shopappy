@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:shopappy/models/login_model.dart';
+import 'package:shopappy/shared/components/constants.dart';
 import 'package:shopappy/shared/network/end_points.dart';
 import 'package:shopappy/shared/network/remote/dio_helper.dart';
 
@@ -29,6 +30,23 @@ class LoginCubit extends Cubit<LoginState> {
     }).catchError((err) {
       print('ERROR: ${err}');
       emit(LoginErrorState(err.toString()));
+    });
+  }
+
+  void userSignout() {
+    emit(LoginLoadingState());
+    DioHelper.postData(
+      endPoint: LOGOUT,
+      data: {
+        'fcm_token': token,
+      },
+    ).then((value) {
+      print(value.data);
+
+      emit(LogoutSucssesState());
+    }).catchError((err) {
+      print('ERROR: ${err}');
+      emit(LogoutErrorState(err.toString()));
     });
   }
 
