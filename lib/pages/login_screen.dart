@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopappy/pages/home_screen.dart';
 import 'package:shopappy/pages/register_screen.dart';
 import 'package:shopappy/shared/components/components.dart';
-import 'package:shopappy/shared/cubit/app_cubit/app_cubit.dart';
 import 'package:shopappy/shared/cubit/login_cubit/login_cubit.dart';
 import 'package:shopappy/shared/network/local/cache_helper.dart';
 
@@ -24,7 +23,7 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<LoginCubit, LoginState>(
       listener: (context, state) {
-        if (state is LoginSucssesState) {
+        if (state is LoginSuccessState) {
           if (state.loginModel.status!) {
             CacheHelper.saveData(
                     key: 'token', value: state.loginModel.data!.token)
@@ -32,7 +31,7 @@ class LoginScreen extends StatelessWidget {
               return customToast(
                 msg: state.loginModel.message.toString(),
                 color: Colors.greenAccent,
-              ).then((value) => navigateAndFinish(context, HomeScreen()));
+              ).then((value) => navigateAndFinish(context, const HomeScreen()));
             });
           } else {
             customToast(
@@ -61,14 +60,14 @@ class LoginScreen extends StatelessWidget {
                             .headline4
                             ?.copyWith(color: Colors.black),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 12,
                       ),
                       Text(
                         'login now to browse or hot offers',
                         style: Theme.of(context).textTheme.bodyText2,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 30,
                       ),
                       defaultFormField(
@@ -78,11 +77,12 @@ class LoginScreen extends StatelessWidget {
                           if (val!.isEmpty) {
                             return 'please enter your email';
                           }
+                          return null;
                         },
                         label: 'Email Address',
                         prefix: Icons.email_outlined,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 12,
                       ),
                       defaultFormField(
@@ -92,6 +92,7 @@ class LoginScreen extends StatelessWidget {
                           if (val!.isEmpty) {
                             return 'please enter your password';
                           }
+                          return null;
                         },
                         onSubmit: (_) {
                           if (formKey.currentState!.validate()) {
@@ -111,13 +112,13 @@ class LoginScreen extends StatelessWidget {
                           LoginCubit.get(context).changePasswordVisibility();
                         },
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 30,
                       ),
                       ConditionalBuilder(
                         condition: state is! LoginLoadingState,
                         fallback: (BuildContext context) =>
-                            Center(child: CircularProgressIndicator()),
+                            const Center(child: CircularProgressIndicator()),
                         builder: (BuildContext context) => defaultButton(
                           function: () {
                             if (formKey.currentState!.validate()) {
@@ -131,16 +132,17 @@ class LoginScreen extends StatelessWidget {
                           isUpperCase: true,
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 15,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text('Don\'t have an account '),
+                          const Text('Don\'t have an account '),
                           defaultTextButton(
                             function: () {
-                              navigateTo(context, RegisterScreen());
+                              //AppCubit.get(context).changeAppMode();
+                              navigateTo(context, const RegisterScreen());
                             },
                             text: 'Sign Up',
                             isUpperCase: true,

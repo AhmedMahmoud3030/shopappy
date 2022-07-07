@@ -4,7 +4,7 @@ import 'package:introduction_screen/introduction_screen.dart';
 import 'package:shopappy/pages/login_screen.dart';
 import 'package:shopappy/shared/network/local/cache_helper.dart';
 
-class OnBordingScreen extends StatelessWidget {
+class OnBoardingScreen extends StatelessWidget {
   List<PageViewModel> listPagesViewModel = [
     PageViewModel(
       title: "Title of first page",
@@ -16,11 +16,11 @@ class OnBordingScreen extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(14),
               // color: Colors.amber
-              image: DecorationImage(
+              image: const DecorationImage(
                   fit: BoxFit.cover,
-                  image: AssetImage('assets/images/onbording_1.jpg')),
+                  image: AssetImage('assets/images/onboarding_1.jpg')),
             ),
-            child: Center(
+            child: const Center(
               child: Text(
                 'Screen Title',
                 // style: Theme.of(context).textTheme.headline1,
@@ -40,11 +40,11 @@ class OnBordingScreen extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(14),
               // color: Colors.amber
-              image: DecorationImage(
+              image: const DecorationImage(
                   fit: BoxFit.cover,
-                  image: AssetImage('assets/images/onbording_2.jpg')),
+                  image: AssetImage('assets/images/onboarding_2.jpg')),
             ),
-            child: Center(
+            child: const Center(
               child: Text(
                 'Screen Title',
                 // style: Theme.of(context).textTheme.headline1,
@@ -64,11 +64,11 @@ class OnBordingScreen extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(14),
               // color: Colors.amber
-              image: DecorationImage(
+              image: const DecorationImage(
                   fit: BoxFit.cover,
-                  image: AssetImage('assets/images/onbording_3.jpg')),
+                  image: AssetImage('assets/images/onboarding_3.jpg')),
             ),
-            child: Center(
+            child: const Center(
               child: Text(
                 'Screen Title',
                 // style: Theme.of(context).textTheme.headline1,
@@ -79,10 +79,11 @@ class OnBordingScreen extends StatelessWidget {
       ),
     ),
   ];
+
+  OnBoardingScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
-    SystemChrome.setEnabledSystemUIOverlays([]);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
     return Scaffold(
       body: IntroductionScreen(
         pages: listPagesViewModel,
@@ -106,7 +107,7 @@ class OnBordingScreen extends StatelessWidget {
         dotsDecorator: DotsDecorator(
           size: const Size.square(10.0),
           activeSize: const Size(20.0, 10.0),
-          activeColor: Theme.of(context).accentColor,
+          activeColor: Theme.of(context).colorScheme.secondary,
           color: Colors.black26,
           spacing: const EdgeInsets.symmetric(horizontal: 3.0),
           activeShape: RoundedRectangleBorder(
@@ -123,7 +124,7 @@ class OnBordingScreen extends StatelessWidget {
       //         // color: Colors.amber
       //         image: DecorationImage(
       //             fit: BoxFit.cover,
-      //             image: AssetImage('assets/images/onbording_1.jpg')),
+      //             image: AssetImage('assets/images/onboarding_1.jpg')),
       //       ),
       //     ),
       //     Center(

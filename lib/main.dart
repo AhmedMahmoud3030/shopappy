@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopappy/pages/home_screen.dart';
 import 'package:shopappy/pages/login_screen.dart';
@@ -24,14 +23,14 @@ void main() async {
 
   if (isBorading!) {
     if (token!.length >= 5) {
-      startWidget = HomeScreen();
+      startWidget = const HomeScreen();
     } else {
       startWidget = LoginScreen();
     }
   } else {
-    startWidget = OnBordingScreen();
+    startWidget = OnBoardingScreen();
   }
-
+  //startWidget = OnBoardingScreen();
   runApp(MyApp(
     isDark: isDark,
     startWidget: startWidget,
@@ -42,11 +41,12 @@ class MyApp extends StatelessWidget {
   final bool? isDark;
   final Widget? startWidget;
 
-  MyApp({
+  const MyApp({
     Key? key,
     this.isDark,
     this.startWidget,
   }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -55,12 +55,13 @@ class MyApp extends StatelessWidget {
           create: (context) => AppCubit()..changeAppMode(fromShared: isDark),
         ),
         BlocProvider(
-          create: (context) => LoginCubit(),
+          create: (context) => LoginCubit()..getUserData(),
         ),
         BlocProvider(
             create: (context) => HomeCubit()
               ..getHomeData()
-              ..getCategoryData()),
+              ..getCategoryData()
+              ..getFavoriteData()),
       ],
       child: BlocConsumer<AppCubit, AppState>(
         listener: (context, state) {

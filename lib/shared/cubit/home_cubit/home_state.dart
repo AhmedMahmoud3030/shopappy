@@ -27,7 +27,21 @@ class HomeCategoryErrorDataState extends HomeState {
   HomeCategoryErrorDataState(this.message);
 }
 
-class HomeChangeFavoriteState extends HomeState {}
+class HomeGetFavoriteLoadingDataState extends HomeState {}
+
+class HomeGetFavoriteSuccessDataState extends HomeState {}
+
+class HomeGetFavoriteErrorDataState extends HomeState {
+  final String message;
+
+  HomeGetFavoriteErrorDataState(this.message);
+}
+
+class HomeChangeFavoriteState extends HomeState {
+  final ChangeFavoriteModel model;
+
+  HomeChangeFavoriteState(this.model);
+}
 
 class HomeChangeErrorFavoriteState extends HomeState {
   final String message;

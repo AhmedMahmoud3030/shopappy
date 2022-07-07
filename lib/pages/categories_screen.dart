@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopappy/models/categories_model.dart';
-import 'package:shopappy/shared/components/components.dart';
 import 'package:shopappy/shared/cubit/home_cubit/home_cubit.dart';
 
 class CategoriesScreen extends StatelessWidget {
@@ -10,9 +9,7 @@ class CategoriesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<HomeCubit, HomeState>(
-      listener: (context, state) {
-        // TODO: implement listener
-      },
+      listener: (context, state) {},
       builder: (context, state) {
         var model = HomeCubit.get(context);
         return ListView.builder(
@@ -24,12 +21,12 @@ class CategoriesScreen extends StatelessWidget {
   }
 
   Widget buildCatItem(CatData model) => Container(
-        padding: EdgeInsets.all(8),
+        padding: const EdgeInsets.all(8),
         height: 100,
         child: Card(
           child: Row(
             children: [
-              Container(
+              SizedBox(
                 width: 150,
                 child: Image(
                   image: NetworkImage(
@@ -38,18 +35,18 @@ class CategoriesScreen extends StatelessWidget {
                   fit: BoxFit.cover,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 20,
               ),
               Text(
                 model.name!,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              Spacer(),
-              Icon(
+              const Spacer(),
+              const Icon(
                 Icons.arrow_forward_ios,
               )
             ],

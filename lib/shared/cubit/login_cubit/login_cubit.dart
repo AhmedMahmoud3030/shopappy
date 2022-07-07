@@ -1,6 +1,4 @@
-import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:meta/meta.dart';
 import 'package:shopappy/models/login_model.dart';
 import 'package:shopappy/shared/components/constants.dart';
 import 'package:shopappy/shared/network/end_points.dart';
@@ -25,10 +23,11 @@ class LoginCubit extends Cubit<LoginState> {
     ).then((value) {
       //print(value.data);
       loginModel = LoginModel.fromJson(value.data);
+      token = loginModel!.data!.token;
 
-      emit(LoginSucssesState(loginModel!));
+      emit(LoginSuccessState(loginModel!));
     }).catchError((err) {
-      print('ERROR: ${err}');
+      //print('ERROR: $err');
       emit(LoginErrorState(err.toString()));
     });
   }
@@ -43,9 +42,9 @@ class LoginCubit extends Cubit<LoginState> {
     ).then((value) {
       print(value.data);
 
-      emit(LogoutSucssesState());
+      emit(LogoutSuccessState());
     }).catchError((err) {
-      print('ERROR: ${err}');
+      //print('ERROR: $err');
       emit(LogoutErrorState(err.toString()));
     });
   }
@@ -54,5 +53,19 @@ class LoginCubit extends Cubit<LoginState> {
   void changePasswordVisibility() {
     visibility = !visibility;
     emit(ChangeVisibilityState());
+  }
+
+  LoginModel? userData;
+  void getUserData() async {
+    emit(LoginGetUserLoadingDataState());
+    await DioHelper.getData(endPoint: PROFILE, token: token).then((value) {
+      userData = LoginModel.fromJson(value.data);
+      print(userData);
+
+      emit(LoginGetUserSuccessDataState());
+    }).catchError((err) {
+      //print(err.toString());
+      emit(LoginGetUserErrorDataState(err.toString()));
+    });
   }
 }

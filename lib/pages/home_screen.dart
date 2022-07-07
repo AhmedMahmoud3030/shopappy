@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopappy/pages/search_screen.dart';
-import 'package:shopappy/pages/settings.dart';
+import 'package:shopappy/pages/settings_screen.dart';
 import 'package:shopappy/shared/components/components.dart';
 import 'package:shopappy/shared/cubit/home_cubit/home_cubit.dart';
 import 'package:shopappy/shared/styles/colors.dart';
@@ -14,20 +14,18 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<HomeCubit, HomeState>(
-      listener: (context, state) {
-        // TODO: implement listener
-      },
+      listener: (context, state) {},
       builder: (context, state) {
         var cubit = HomeCubit.get(context);
         return Scaffold(
           appBar: AppBar(
-            title: Text('Shopappy'),
+            title: const Text('Shopappy'),
             centerTitle: true,
             leading: IconButton(
               onPressed: () {
-                navigateTo(context, SearchScreen());
+                navigateTo(context, const SearchScreen());
               },
-              icon: Icon(Icons.search),
+              icon: const Icon(Icons.search),
             ),
             actions: [
               IconButton(
@@ -35,9 +33,7 @@ class HomeScreen extends StatelessWidget {
                   AppCubit.get(context).changeAppMode();
                 },
                 icon: BlocConsumer<AppCubit, AppState>(
-                  listener: (context, state) {
-                    // TODO: implement listener
-                  },
+                  listener: (context, state) {},
                   builder: (context, state) {
                     return Icon(
                       AppCubit.get(context).isDark
@@ -52,9 +48,9 @@ class HomeScreen extends StatelessWidget {
               ),
               IconButton(
                 onPressed: () {
-                  navigateTo(context, SettingsScreen());
+                  navigateTo(context, const SettingsScreen());
                 },
-                icon: Icon(Icons.settings),
+                icon: const Icon(Icons.settings),
               ),
             ],
           ),
@@ -62,7 +58,7 @@ class HomeScreen extends StatelessWidget {
           bottomNavigationBar: BottomNavigationBar(
               currentIndex: cubit.currentIndex,
               onTap: (val) => cubit.changeBottom(val),
-              items: [
+              items: const [
                 BottomNavigationBarItem(
                   icon: Icon(Icons.home),
                   label: 'Home',
