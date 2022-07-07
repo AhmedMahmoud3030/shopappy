@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopappy/models/login_model.dart';
 import 'package:shopappy/shared/components/constants.dart';
@@ -40,7 +41,7 @@ class LoginCubit extends Cubit<LoginState> {
         'fcm_token': token,
       },
     ).then((value) {
-      print(value.data);
+      debugPrint(value.data);
 
       emit(LogoutSuccessState());
     }).catchError((err) {
@@ -60,7 +61,7 @@ class LoginCubit extends Cubit<LoginState> {
     emit(LoginGetUserLoadingDataState());
     await DioHelper.getData(endPoint: PROFILE, token: token).then((value) {
       userData = LoginModel.fromJson(value.data);
-      print(userData);
+      debugPrint("userData");
 
       emit(LoginGetUserSuccessDataState());
     }).catchError((err) {

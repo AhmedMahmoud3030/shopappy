@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopappy/pages/login_screen.dart';
-import 'package:shopappy/shared/cubit/home_cubit/home_cubit.dart';
 import 'package:shopappy/shared/cubit/login_cubit/login_cubit.dart';
 
 import '../shared/components/components.dart';
@@ -16,7 +15,7 @@ class SettingsScreen extends StatelessWidget {
         var cubit = LoginCubit.get(context);
         return Scaffold(
           appBar: AppBar(),
-          body: Container(
+          body: SizedBox(
             width: double.infinity,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -29,33 +28,33 @@ class SettingsScreen extends StatelessWidget {
                       image: NetworkImage(cubit.userData!.data!.image!),
                       fit: BoxFit.cover),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 14,
                 ),
                 Text(
                   '${cubit.userData!.data!.name}',
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 20,
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 14,
                 ),
                 Text(
                   'Email: ${cubit.userData!.data!.email}',
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 14,
                     color: Colors.black,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 14,
                 ),
                 Text(
                   'Phone: ${cubit.userData!.data!.phone}',
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 14,
                     color: Colors.black,
                   ),

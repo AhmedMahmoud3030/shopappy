@@ -4,7 +4,6 @@ import 'package:shopappy/models/categories_model.dart';
 import 'package:shopappy/models/change_favorites_model.dart';
 import 'package:shopappy/models/favorite_model.dart';
 import 'package:shopappy/models/home_model.dart';
-import 'package:shopappy/models/login_model.dart';
 import 'package:shopappy/pages/categories_screen.dart';
 import 'package:shopappy/pages/favorites_screen.dart';
 import 'package:shopappy/pages/products_screen.dart';
@@ -91,7 +90,7 @@ class HomeCubit extends Cubit<HomeState> {
     emit(HomeGetFavoriteLoadingDataState());
     await DioHelper.getData(endPoint: FAVORITES, token: token).then((value) {
       getFavorite = Favorite.fromJson(value.data);
-      print(getFavorite);
+      debugPrint(getFavorite!.message.toString());
 
       emit(HomeGetFavoriteSuccessDataState());
     }).catchError((err) {
