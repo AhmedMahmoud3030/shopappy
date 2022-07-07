@@ -1,4 +1,5 @@
-import 'package:shopappy/models/categories_model.dart';
+
+// ignore_for_file: unnecessary_question_mark, prefer_void_to_null
 
 class Favorite {
   bool? status;
@@ -10,7 +11,7 @@ class Favorite {
   Favorite.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
-    favData = json['data'] != null ? new FavData.fromJson(json['data']) : null;
+    favData = json['data'] != null ? FavData.fromJson(json['data']) : null;
   }
 }
 
@@ -47,7 +48,7 @@ class FavData {
     if (json['data'] != null) {
       proData = <ProData>[];
       json['data'].forEach((v) {
-        proData!.add(new ProData.fromJson(v));
+        proData!.add(ProData.fromJson(v));
       });
     }
     firstPageUrl = json['first_page_url'];
@@ -72,7 +73,7 @@ class ProData {
   ProData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     product =
-        json['product'] != null ? new Product.fromJson(json['product']) : null;
+        json['product'] != null ? Product.fromJson(json['product']) : null;
   }
 }
 

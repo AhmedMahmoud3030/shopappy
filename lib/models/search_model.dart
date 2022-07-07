@@ -1,12 +1,14 @@
-class Search {
+// ignore_for_file: prefer_void_to_null, unnecessary_question_mark
+
+class SearchModel {
   bool? status;
   Null? message;
   Data? data;
 
-  Search.fromJson(Map<String, dynamic> json) {
+  SearchModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
-    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
+    data = json['data'] != null ? Data.fromJson(json['data']) : null;
   }
 }
 
@@ -29,7 +31,7 @@ class Data {
     if (json['data'] != null) {
       reData = <ReData>[];
       json['data'].forEach((v) {
-        reData!.add(new ReData.fromJson(v));
+        reData!.add(ReData.fromJson(v));
       });
     }
     firstPageUrl = json['first_page_url'];
@@ -47,13 +49,13 @@ class Data {
 
 class ReData {
   int? id;
-  double? price;
+  dynamic price;
   String? image;
   String? name;
   String? description;
   List<String>? images;
   bool? inFavorites;
-  bool? inCart;
+  bool? inCart; 
 
   ReData.fromJson(Map<String, dynamic> json) {
     id = json['id'];

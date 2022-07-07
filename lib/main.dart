@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopappy/pages/home_screen.dart';
@@ -7,6 +9,7 @@ import 'package:shopappy/shared/components/constants.dart';
 import 'package:shopappy/shared/cubit/app_cubit/app_cubit.dart';
 import 'package:shopappy/shared/cubit/home_cubit/home_cubit.dart';
 import 'package:shopappy/shared/cubit/login_cubit/login_cubit.dart';
+import 'package:shopappy/shared/cubit/search_cubit/search_cubit.dart';
 import 'package:shopappy/shared/network/local/cache_helper.dart';
 import 'package:shopappy/shared/network/remote/dio_helper.dart';
 import 'package:shopappy/shared/styles/themes.dart';
@@ -16,12 +19,12 @@ void main() async {
   DioHelper.init();
   await CacheHelper.init();
   bool? isDark = CacheHelper.getData(key: 'isDark');
-  bool? isBorading = CacheHelper.getData(key: 'onBoarding');
+  bool? isBoarding = CacheHelper.getData(key: 'onBoarding');
   token = CacheHelper.getData(key: 'token');
 
   Widget? startWidget;
 
-  if (isBorading!) {
+  if (isBoarding!) {
     if (token!.length >= 5) {
       startWidget = const HomeScreen();
     } else {
@@ -58,6 +61,9 @@ class MyApp extends StatelessWidget {
           create: (context) => LoginCubit()..getUserData(),
         ),
         BlocProvider(
+          create: (context) => SearchCubit(),
+        ),
+        BlocProvider(
             create: (context) => HomeCubit()
               ..getHomeData()
               ..getCategoryData()
@@ -65,7 +71,6 @@ class MyApp extends StatelessWidget {
       ],
       child: BlocConsumer<AppCubit, AppState>(
         listener: (context, state) {
-          // TODO: implement listener
           print(AppCubit().isDark);
         },
         builder: (context, state) {

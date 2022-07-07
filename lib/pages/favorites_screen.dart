@@ -1,9 +1,7 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shopappy/models/change_favorites_model.dart';
 import 'package:shopappy/models/favorite_model.dart';
-import 'package:shopappy/shared/components/components.dart';
 import 'package:shopappy/shared/cubit/home_cubit/home_cubit.dart';
 
 import '../shared/styles/colors.dart';
@@ -18,14 +16,14 @@ class FavoriteScreen extends StatelessWidget {
         var cubit = HomeCubit.get(context);
         return ConditionalBuilder(
           builder: (context) => ListView.builder(
-            physics: BouncingScrollPhysics(),
+            physics: const BouncingScrollPhysics(),
             itemBuilder: (context, index) => buildFavItem(
                 cubit.getFavorite!.favData!.proData![index], context),
             itemCount: cubit.getFavorite!.favData!.proData!.length,
           ),
-          condition: state
-              is! HomeGetFavoriteLoadingDataState, //HomeCubit.get(context).getFavorite != null,
-          fallback: (context) => Center(
+          condition: state is! HomeGetFavoriteLoadingDataState,
+          //HomeCubit.get(context).getFavorite != null,
+          fallback: (context) => const Center(
             child: CircularProgressIndicator(),
           ),
         );
@@ -53,10 +51,10 @@ class FavoriteScreen extends StatelessWidget {
                     if (model.product!.discount != 0)
                       Container(
                         color: Colors.red,
-                        padding: EdgeInsets.symmetric(
+                        padding: const EdgeInsets.symmetric(
                           horizontal: 5.0,
                         ),
-                        child: Text(
+                        child: const Text(
                           'DISCOUNT',
                           style: TextStyle(
                             fontSize: 8.0,
@@ -66,7 +64,7 @@ class FavoriteScreen extends StatelessWidget {
                       ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 20.0,
                 ),
                 Expanded(
@@ -77,34 +75,34 @@ class FavoriteScreen extends StatelessWidget {
                         model.product!.name!,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 14.0,
                           height: 1.3,
                         ),
                       ),
-                      Spacer(),
+                      const Spacer(),
                       Row(
                         children: [
                           Text(
                             model.product!.price.toString(),
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 12.0,
                               color: defaultColor,
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 5.0,
                           ),
                           if (model.product!.discount != 0)
                             Text(
                               model.product!.oldPrice.toString(),
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontSize: 10.0,
                                 color: Colors.grey,
                                 decoration: TextDecoration.lineThrough,
                               ),
                             ),
-                          Spacer(),
+                          const Spacer(),
                           IconButton(
                             onPressed: () {
                               HomeCubit.get(context)
@@ -116,7 +114,7 @@ class FavoriteScreen extends StatelessWidget {
                                       .favorites[model.product!.id!]!
                                   ? defaultColor
                                   : Colors.grey,
-                              child: Icon(
+                              child: const Icon(
                                 Icons.favorite_border,
                                 size: 14.0,
                                 color: Colors.white,

@@ -1,6 +1,8 @@
+// ignore_for_file: prefer_void_to_null, prefer_collection_literals
+
 class HomeModel {
   bool? status;
-  Null? message;
+  Null message;
   Data? data;
 
   HomeModel({this.status, this.message, this.data});
@@ -8,13 +10,13 @@ class HomeModel {
   HomeModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
-    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
+    data = json['data'] != null ? Data.fromJson(json['data']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
-    data['message'] = this.message;
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['status'] = status;
+    data['message'] = message;
     if (this.data != null) {
       data['data'] = this.data!.toJson();
     }
@@ -33,27 +35,27 @@ class Data {
     if (json['banners'] != null) {
       banners = <Banners>[];
       json['banners'].forEach((v) {
-        banners!.add(new Banners.fromJson(v));
+        banners!.add(Banners.fromJson(v));
       });
     }
     if (json['products'] != null) {
       products = <Products>[];
       json['products'].forEach((v) {
-        products!.add(new Products.fromJson(v));
+        products!.add(Products.fromJson(v));
       });
     }
     ad = json['ad'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.banners != null) {
-      data['banners'] = this.banners!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    if (banners != null) {
+      data['banners'] = banners!.map((v) => v.toJson()).toList();
     }
-    if (this.products != null) {
-      data['products'] = this.products!.map((v) => v.toJson()).toList();
+    if (products != null) {
+      data['products'] = products!.map((v) => v.toJson()).toList();
     }
-    data['ad'] = this.ad;
+    data['ad'] = ad;
     return data;
   }
 }
@@ -61,8 +63,8 @@ class Data {
 class Banners {
   int? id;
   String? image;
-  Null? category;
-  Null? product;
+  Null category;
+  Null product;
 
   Banners({this.id, this.image, this.category, this.product});
 
@@ -74,11 +76,11 @@ class Banners {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['image'] = this.image;
-    data['category'] = this.category;
-    data['product'] = this.product;
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['id'] = id;
+    data['image'] = image;
+    data['category'] = category;
+    data['product'] = product;
     return data;
   }
 }
@@ -121,17 +123,17 @@ class Products {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['price'] = this.price;
-    data['old_price'] = this.oldPrice;
-    data['discount'] = this.discount;
-    data['image'] = this.image;
-    data['name'] = this.name;
-    data['description'] = this.description;
-    data['images'] = this.images;
-    data['in_favorites'] = this.inFavorites;
-    data['in_cart'] = this.inCart;
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['id'] = id;
+    data['price'] = price;
+    data['old_price'] = oldPrice;
+    data['discount'] = discount;
+    data['image'] = image;
+    data['name'] = name;
+    data['description'] = description;
+    data['images'] = images;
+    data['in_favorites'] = inFavorites;
+    data['in_cart'] = inCart;
     return data;
   }
 }
